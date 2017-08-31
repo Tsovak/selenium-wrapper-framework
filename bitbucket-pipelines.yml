@@ -1,0 +1,24 @@
+# This is a sample build configuration for Java (Maven).
+# Check our guides at https://confluence.atlassian.com/x/zd-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: maven:3.3.9
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - maven
+        script:
+          - docker pull selenium/hub:latest
+          - docker pull selenium/node-chrome
+          - docker run -p 4444:4444 --name selenium-hub selenium/hub
+          - docker run --link selenium-hub:hub selenium/node-chrome
+          - chmod +x $DRIVERPATH
+          - mvn compiler:compile test allure:report
+
+
+
+options:
+  docker: true
