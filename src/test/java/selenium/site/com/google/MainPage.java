@@ -16,15 +16,13 @@ import java.util.List;
 public class MainPage extends BasePage<MainPage>{
 
     @Getter
-    @FindBy(css = "input#lst-ib")
+    @FindBy(name = "q")
     @Title(value = "This is search input element")
     TextInputElement searchInputElement;
 
     @Getter
     @FindAll({
-        @FindBy(css = "input[name='btnK']"),
-        @FindBy(xpath = "//*[@name='btnK']"),
-        @FindBy(css = "button#_fZl")})
+        @FindBy(xpath = "(//*[@name='btnK'])[2]")})
     @Title(value = "Search Google")
     ButtonElement searchButton;
 
